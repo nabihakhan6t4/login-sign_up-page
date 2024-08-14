@@ -1,57 +1,79 @@
-/* styles.css */
-
 body {
-    background: linear-gradient(to right, #f8cdda, #1f8ef1);
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: url("https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNjUyOXwwfDF8c2VhcmNofDh8fG5hdHVyZSUyMGJsdXUlMjB3aGl0ZSUyMHRleHR8ZW58MHx8fHwxNjg1NTg3NTM5&ixlib=rb-1.2.1&q=80&w=1080")
+    no-repeat center center fixed;
+  background-size: cover;
+
+  background-size: cover;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .card {
-    width: 400px;
-    border: none;
-    border-radius: 15px;
+  width: 400px;
+  border: none;
+  border-radius: 15px;
+  opacity: 0.9;
 }
 
 .card-body {
-    padding: 2rem;
+  padding: 2rem;
 }
 
 h3 {
-    font-weight: bold;
-    color: #333;
+  font-weight: bold;
+  color: #333;
 }
 
 .form-label {
-    font-weight: 500;
-    color: #555;
+  font-weight: 500;
+  color: #555;
 }
 
-input[type="email"], input[type="password"] {
-    border-radius: 10px;
+.input-group-text {
+  background-color: #1f8ef1;
+  color: white;
+  border: none;
+}
+
+input[type="email"],
+input[type="password"] {
+  border-radius: 10px;
 }
 
 button[type="submit"] {
-    background-color: #1f8ef1;
-    border: none;
-    border-radius: 10px;
-    padding: 0.5rem;
-    font-size: 1rem;
-    transition: background-color 0.3s ease;
+  background-color: #1f8ef1;
+  border: none;
+  border-radius: 10px;
+  padding: 0.5rem;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
 }
 
 button[type="submit"]:hover {
-    background-color: #105da8;
+  background-color: #105da8;
+  transform: scale(1.05); /* Add a slight zoom effect on hover */
 }
 
 .text-center p {
-    color: #333;
+  color: #333;
 }
 
 .text-center a {
-    color: #1f8ef1;
-    text-decoration: none;
-    font-weight: 600;
+  color: #1f8ef1;
+  text-decoration: none;
+  font-weight: 600;
 }
 
 .text-center a:hover {
-    text-decoration: underline;
+  text-decoration: underline;
+  color: #105da8; /* Change color on hover */
+}
+
+/* Add transitions for input fields */
+input {
+  transition: border 0.3s ease;
+}
+
+input:focus {
+  border: 2px solid #1f8ef1; /* Change border color on focus */
+  outline: none; /* Remove default outline */
 }

@@ -23,15 +23,24 @@ function toggleForm(event) {
         loginForm.innerHTML = `
             <div class="mb-3">
                 <label for="signUpEmail" class="form-label">Email address</label>
-                <input type="email" class="form-control" id="signUpEmail" required>
+                <div class="input-group">
+                    <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                    <input type="email" class="form-control" id="signUpEmail" required>
+                </div>
             </div>
             <div class="mb-3">
                 <label for="signUpPassword" class="form-label">Password</label>
-                <input type="password" class="form-control" id="signUpPassword" required>
+                <div class="input-group">
+                    <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                    <input type="password" class="form-control" id="signUpPassword" required>
+                </div>
             </div>
             <div class="mb-3">
                 <label for="signUpConfirmPassword" class="form-label">Confirm Password</label>
-                <input type="password" class="form-control" id="signUpConfirmPassword" required>
+                <div class="input-group">
+                    <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                    <input type="password" class="form-control" id="signUpConfirmPassword" required>
+                </div>
             </div>
             <button type="submit" class="btn btn-primary w-100">Sign Up</button>
         `;
@@ -48,11 +57,17 @@ function toggleForm(event) {
         loginForm.innerHTML = `
             <div class="mb-3">
                 <label for="loginEmail" class="form-label">Email address</label>
-                <input type="email" class="form-control" id="loginEmail" required>
+                <div class="input-group">
+                    <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                    <input type="email" class="form-control" id="loginEmail" required>
+                </div>
             </div>
             <div class="mb-3">
                 <label for="loginPassword" class="form-label">Password</label>
-                <input type="password" class="form-control" id="loginPassword" required>
+                <div class="input-group">
+                    <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                    <input type="password" class="form-control" id="loginPassword" required>
+                </div>
             </div>
             <button type="submit" class="btn btn-primary w-100">Login</button>
         `;
