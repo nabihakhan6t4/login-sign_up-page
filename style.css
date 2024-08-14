@@ -1,0 +1,57 @@
+/* styles.css */
+
+body {
+    background: linear-gradient(to right, #f8cdda, #1f8ef1);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.card {
+    width: 400px;
+    border: none;
+    border-radius: 15px;
+}
+
+.card-body {
+    padding: 2rem;
+}
+
+h3 {
+    font-weight: bold;
+    color: #333;
+}
+
+.form-label {
+    font-weight: 500;
+    color: #555;
+}
+
+input[type="email"], input[type="password"] {
+    border-radius: 10px;
+}
+
+button[type="submit"] {
+    background-color: #1f8ef1;
+    border: none;
+    border-radius: 10px;
+    padding: 0.5rem;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+    background-color: #105da8;
+}
+
+.text-center p {
+    color: #333;
+}
+
+.text-center a {
+    color: #1f8ef1;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.text-center a:hover {
+    text-decoration: underline;
+}
