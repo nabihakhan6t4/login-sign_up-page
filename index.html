@@ -15,52 +15,10 @@
     />
   </head>
   <body>
-    <div
-      class="container d-flex justify-content-center align-items-center min-vh-100"
-    >
-      <div class="card shadow-lg p-3">
-        <div class="card-body">
-          <h3 class="card-title text-center">Login</h3>
-          <form id="loginForm">
-            <div class="mb-3">
-              <label for="loginEmail" class="form-label">Email address</label>
-              <div class="input-group">
-                <span class="input-group-text"
-                  ><i class="fas fa-envelope"></i
-                ></span>
-                <input
-                  type="email"
-                  class="form-control"
-                  id="loginEmail"
-                  required
-                />
-              </div>
-            </div>
-            <div class="mb-3">
-              <label for="loginPassword" class="form-label">Password</label>
-              <div class="input-group">
-                <span class="input-group-text"
-                  ><i class="fas fa-lock"></i
-                ></span>
-                <input
-                  type="password"
-                  class="form-control"
-                  id="loginPassword"
-                  required
-                />
-              </div>
-            </div>
-            <button type="submit" class="btn btn-primary w-100">Login</button>
-          </form>
-          <div class="text-center mt-3">
-            <p>
-              Don't have an account? <a href="#" id="toggleSignUp">Sign Up</a>
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-
+    <h1 id="welcomeMessage">
+      Hello
+      <button id="logoutButton" class="hidden">Logout</button>
+    </h1>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="script.js"></script>
   </body>

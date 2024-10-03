@@ -1,87 +1,97 @@
-// Yeh function toggleForm ka naam diya gaya hai, yeh function ka kaam yeh hai ke
-// jab user "Sign Up" ya "Login" link par click kare, to form ke content ko change karna.
-function toggleForm(event) {
-    // preventDefault() ka matlab yeh hai ke jo default kaam hota hai kisi element ka 
-    // (is case mein, link ka page reload karna) usse rok do.
-    event.preventDefault();
-
-    // document.querySelector('.card-title') yeh line webpage par se "card-title" class wala element dhoondhti hai,
-    // yeh element wo hai jisme "Login" ya "Sign Up" likha hota hai, jo humein dikhai deta hai.
-    const cardTitle = document.querySelector('.card-title');
-    
-    // document.getElementById('loginForm') yeh line webpage se "loginForm" ID wala element dhoondhti hai,
-    // yeh wo element hai jisme pura form hota hai, jisme hum email aur password dalte hain.
-    const loginForm = document.getElementById('loginForm');
-    
-    // Yeh if statement check karti hai ke kya abhi jo form ka title hai (cardTitle.textContent) wo "Login" hai.
-    if (cardTitle.textContent === 'Login') {
-        // Agar title "Login" hai, to ab hum usse "Sign Up" mein badal denge.
-        cardTitle.textContent = 'Sign Up';
-
-        // Phir, loginForm.innerHTML ka matlab yeh hai ke jo form ke andar content hai, usse hum ab replace karenge.
-        // Naya content wo hoga jo "Sign Up" form ke liye zaroori hai: email, password, aur confirm password fields.
-        loginForm.innerHTML = `
-            <div class="mb-3">
-                <label for="signUpEmail" class="form-label">Email address</label>
-                <div class="input-group">
-                    <span class="input-group-text"><i class="fas fa-envelope"></i></span>
-                    <input type="email" class="form-control" id="signUpEmail" required>
-                </div>
-            </div>
-            <div class="mb-3">
-                <label for="signUpPassword" class="form-label">Password</label>
-                <div class="input-group">
-                    <span class="input-group-text"><i class="fas fa-lock"></i></span>
-                    <input type="password" class="form-control" id="signUpPassword" required>
-                </div>
-            </div>
-            <div class="mb-3">
-                <label for="signUpConfirmPassword" class="form-label">Confirm Password</label>
-                <div class="input-group">
-                    <span class="input-group-text"><i class="fas fa-lock"></i></span>
-                    <input type="password" class="form-control" id="signUpConfirmPassword" required>
-                </div>
-            </div>
-            <button type="submit" class="btn btn-primary w-100">Sign Up</button>
-        `;
-
-        // Yeh line text ko update karne ke liye hai jo form ke neeche dikhai deta hai,
-        // yeh text user ko batata hai ke agar account hai to "Login" karne ke liye link par click karo.
-        document.querySelector('.text-center p').innerHTML = `Already have an account? <a href="#" id="toggleSignUp">Login</a>`;
-    } else {
-        // Agar title "Sign Up" hai, to ab hum usse "Login" mein badal denge.
-        cardTitle.textContent = 'Login';
-        
-        // Phir, loginForm ka content "Login" form ke liye update kiya jayega,
-        // jisme sirf email aur password fields hain.
-        loginForm.innerHTML = `
-            <div class="mb-3">
-                <label for="loginEmail" class="form-label">Email address</label>
-                <div class="input-group">
-                    <span class="input-group-text"><i class="fas fa-envelope"></i></span>
-                    <input type="email" class="form-control" id="loginEmail" required>
-                </div>
-            </div>
-            <div class="mb-3">
-                <label for="loginPassword" class="form-label">Password</label>
-                <div class="input-group">
-                    <span class="input-group-text"><i class="fas fa-lock"></i></span>
-                    <input type="password" class="form-control" id="loginPassword" required>
-                </div>
-            </div>
-            <button type="submit" class="btn btn-primary w-100">Login</button>
-        `;
-
-        // Yeh line text ko update karne ke liye hai jo form ke neeche dikhai deta hai,
-        // yeh text user ko batata hai ke agar account nahi hai to "Sign Up" karne ke liye link par click karo.
-        document.querySelector('.text-center p').innerHTML = `Don't have an account? <a href="#" id="toggleSignUp">Sign Up</a>`;
-    }
-
-    // Yeh line ensure karti hai ke jab bhi form toggle hota hai, 
-    // to naye link par click karne se dobara se yeh function call ho.
-    document.getElementById('toggleSignUp').addEventListener('click', toggleForm);
+// Check if a user is logged in
+var user = localStorage.getItem("user");
+if (user) {
+  var parsedUser = JSON.parse(user);
+  document.getElementById(
+    "welcomeMessage"
+  ).innerHTML = `Hello ${parsedUser.name}`;
+  document.getElementById("logoutButton").classList.remove("hidden");
+} else {
+  document.getElementById(
+    "welcomeMessage"
+  ).innerHTML = `Hello, please <a href="login.html">Login</a>`;
 }
 
-// Yeh line ensure karti hai ke jab page pehli dafa load ho, 
-// to "Sign Up" link par click hone par toggleForm function call ho.
-document.getElementById('toggleSignUp').addEventListener('click', toggleForm);
+// Handle logout
+document.getElementById("logoutButton").addEventListener("click", function () {
+  localStorage.removeItem("user");
+  window.location.href = "login.html";
+});
+
+// Handle login
+document
+  .getElementById("loginForm")
+  .addEventListener("submit", function (event) {
+    event.preventDefault();
+    var email = document.getElementById("email").value.toLowerCase(); // Convert email to lowercase
+    var password = document.getElementById("password").value;
+
+    var storedUser = localStorage.getItem(email);
+    if (storedUser) {
+      var parsedUser = JSON.parse(storedUser);
+      if (parsedUser.password === password) {
+        localStorage.setItem("user", JSON.stringify(parsedUser));
+        window.location.href = "index.html";
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Incorrect password!",
+        });
+      }
+    } else {
+      Swal.fire({
+        icon: "question",
+        title: "User not found",
+        text: "Would you like to register?",
+      });
+    }
+  });
+
+// Handle registration
+document
+  .getElementById("registerForm")
+  .addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    var username = document.getElementById("username").value;
+    var email = document.getElementById("email").value.toLowerCase(); // Convert email to lowercase
+    var password = document.getElementById("password").value;
+    var confirmPassword = document.getElementById("confirmPassword").value;
+
+    // Password matching validation
+    if (password !== confirmPassword) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Passwords don't match!",
+      });
+      return;
+    }
+
+    // Check if the user already exists
+    if (localStorage.getItem(email)) {
+      Swal.fire({
+        icon: "error",
+        title: "User already exists",
+        text: "Please try a different email.",
+      });
+      return;
+    }
+
+    // Save new user data to localStorage
+    const user = {
+      name: username,
+      email: email,
+      password: password,
+    };
+
+    localStorage.setItem(email, JSON.stringify(user));
+    Swal.fire({
+      icon: "success",
+      title: "Registration Successful!",
+      text: "You can now log in.",
+    }).then(function () {
+      window.location.href = "login.html";
+    });
+  });
