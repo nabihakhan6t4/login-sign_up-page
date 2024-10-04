@@ -1,65 +1,22 @@
-// Check if a user is logged in
-var user = localStorage.getItem("user");
-if (user) {
-  var parsedUser = JSON.parse(user);
-  document.getElementById(
-    "welcomeMessage"
-  ).innerHTML = `Hello ${parsedUser.name}`;
-  document.getElementById("logoutButton").classList.remove("hidden");
-} else {
-  document.getElementById(
-    "welcomeMessage"
-  ).innerHTML = `Hello, please <a href="login.html">Login</a>`;
+// Password Regex Validation
+function validatePassword(password) {
+  // Regex to check for minimum 8 characters, one uppercase, one lowercase, one number, and one special character
+  var re =
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]{8,}$/;
+  return re.test(password);
 }
 
-// Handle logout
-document.getElementById("logoutButton").addEventListener("click", function () {
-  localStorage.removeItem("user");
-  window.location.href = "login.html";
-});
-
-// Handle login
-document
-  .getElementById("loginForm")
-  .addEventListener("submit", function (event) {
-    event.preventDefault();
-    var email = document.getElementById("email").value.toLowerCase(); // Convert email to lowercase
-    var password = document.getElementById("password").value;
-
-    var storedUser = localStorage.getItem(email);
-    if (storedUser) {
-      var parsedUser = JSON.parse(storedUser);
-      if (parsedUser.password === password) {
-        localStorage.setItem("user", JSON.stringify(parsedUser));
-        window.location.href = "index.html";
-      } else {
-        Swal.fire({
-          icon: "error",
-          title: "Oops...",
-          text: "Incorrect password!",
-        });
-      }
-    } else {
-      Swal.fire({
-        icon: "question",
-        title: "User not found",
-        text: "Would you like to register?",
-      });
-    }
-  });
-
-// Handle registration
 document
   .getElementById("registerForm")
-  .addEventListener("submit", function (event) {
+  .addEventListener("submit", async function (event) {
     event.preventDefault();
 
     var username = document.getElementById("username").value;
-    var email = document.getElementById("email").value.toLowerCase(); // Convert email to lowercase
+    var email = document.getElementById("email").value.toLowerCase();
     var password = document.getElementById("password").value;
     var confirmPassword = document.getElementById("confirmPassword").value;
 
-    // Password matching validation
+    // Password Match Check
     if (password !== confirmPassword) {
       Swal.fire({
         icon: "error",
@@ -69,7 +26,17 @@ document
       return;
     }
 
-    // Check if the user already exists
+    // Password Strength Check using Regex
+    if (!validatePassword(password)) {
+      Swal.fire({
+        icon: "error",
+        title: "Weak password",
+        text: "Password must contain at least 8 characters, one uppercase letter, one lowercase letter, one number, and one special character.",
+      });
+      return;
+    }
+
+    // Check if user already exists
     if (localStorage.getItem(email)) {
       Swal.fire({
         icon: "error",
@@ -79,19 +46,21 @@ document
       return;
     }
 
-    // Save new user data to localStorage
+    // Store user data in local storage
     const user = {
       name: username,
       email: email,
-      password: password,
+      password: password, // Save as plain text to hash later on login
     };
-
     localStorage.setItem(email, JSON.stringify(user));
+
+    // Success Registration
     Swal.fire({
       icon: "success",
-      title: "Registration Successful!",
-      text: "You can now log in.",
-    }).then(function () {
+      title: "Registered successfully",
+      showConfirmButton: false,
+      timer: 1500,
+    }).then(() => {
       window.location.href = "login.html";
     });
   });
